@@ -1,13 +1,18 @@
-import com.sun.applet2.preloader.event.ConfigEvent;
+/*
+// --------- \\ ATENÇÃO // --------- \\
 
-import javax.swing.*;
+      A VERSÃO DO JDK DEVE SER A 8
+
+*/
+import visao.janela.Janela;
+import visao.layout.Fontes;
+import visao.janela.PainelInicial;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
         /*
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter server name: ");
@@ -24,12 +29,12 @@ public class Main {
 
 
 
-        Conectar conexao = new Conectar();
+        modelo.conexao.Conectar conexao = new modelo.conexao.Conectar();
         // conexao.setLogin(username, password);
         // conexao.setServer(servername, serverport);
 
         String consulta = "select * from master.sys.databases";
-        Executar ex = new Executar();
+        modelo.conexao.Executar ex = new modelo.conexao.Executar();
         boolean resp = ex.select(consulta, conexao);
 
         Scanner scanner = new Scanner(System.in);
@@ -39,17 +44,24 @@ public class Main {
         conexao.setDatabase(database);
         consulta = "select * from INFORMATION_SCHEMA.TABLES";
         resp = ex.select(consulta, conexao);
-        */
-
-        Conectar conexao = new Conectar();
-        conexao.setLogin("sa", "admin123");
-        conexao.setServer("HARIAMY-PC", "1433");
-        conexao.setDatabase("lojas");
-
-        HashMap<String, ArrayList<String>> databaseValues = new HashMap<>();
 
 
-        Executar ex = new Executar();
+		modelo.conexao.Conectar conexao = new modelo.conexao.Conectar();
+		conexao.setLogin("sa", "admin123H");
+		conexao.setServer("Ubuntinho-s2", "1433");
+		//conexao.setDatabase("teste");
+
+
+		String consulta = "select * from master.sys.databases";
+		modelo.conexao.Executar ex = new modelo.conexao.Executar();
+		boolean resp = ex.select(consulta, conexao);
+
+		System.out.println(resp);
+
+		HashMap<String, ArrayList<String>> databaseValues = new HashMap<>();
+
+
+
         ArrayList<String> resp = ex.selectTableNames(conexao, "lojas");
 
         for (int i = 0; i < resp.size(); i ++){
@@ -63,6 +75,14 @@ public class Main {
             }
             System.out.println("\n");
         }
+*/
+        System.setProperty("file.encoding", "UTF-8");
 
-    }
+        Janela janela = new Janela();
+        janela.conteudoJanela(new PainelInicial(janela));
+        janela.exibirJanela();
+
+        Fontes.setFonte();
+
+	}
 }
