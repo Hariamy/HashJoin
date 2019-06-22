@@ -7,6 +7,8 @@
 import visao.janela.Janela;
 import visao.layout.Fontes;
 import visao.janela.PainelInicial;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -76,6 +78,7 @@ public class Main {
             System.out.println("\n");
         }
 */
+/*
         System.setProperty("file.encoding", "UTF-8");
 
         Janela janela = new Janela();
@@ -83,6 +86,78 @@ public class Main {
         janela.exibirJanela();
 
         Fontes.setFonte();
+*/
+
+		String consulta =  "select p.idadem, p.nome, q.idade from parto as p, quarto as q where p.sexo = q.sexo";
+
+		String textoConsulta = consulta.replaceAll(",", " ").replaceAll("\n", " ").replaceAll("\t", " ").replaceAll(" +", " ").toLowerCase().replaceAll(" as ", ".").replaceAll(" = ", ".");
+
+		String arrayConsulta[] = textoConsulta.split(" ");
+		System.out.println(textoConsulta);
+
+		HashMap<String, ArrayList<String>> colunasSelecionadas = new HashMap<>();
+		HashMap<String,String> tabelasLabel = new HashMap<>();
+		ArrayList<ArrayList<String>> atributosJuncao = new ArrayList<>();
+
+		boolean select = false;
+		boolean from = false;
+		boolean where = false;
+
+		for (String elemento: arrayConsulta) {
+			if (!select && elemento.equals("select") && !from && !where) select = true;
+			else {
+				if (select && elemento.equals("from") && !from && !where) from = true;
+				else {
+					if (select && elemento.equals("where") && from && !where) where = true;
+					else {
+						System.out.println("O que entra no else: "+elemento);
+						if (select && !from && !where ) {
+							System.out.println("foi aqui?");
+							String atributo[] = elemento.split("\\.");
+
+							ArrayList<String> valor = colunasSelecionadas.containsKey(atributo[0]) ? colunasSelecionadas.get(atributo[0]) : new ArrayList<>();
+							valor.add(atributo[1]);
+							colunasSelecionadas.put(atributo[0], valor);
+						}
+
+						if (select && from && !where ) {
+							System.out.println("ou foi aqui? ");
+							String atributo[] = elemento.split("\\.");
+
+							tabelasLabel.put(atributo[0], atributo[1]);
+						}
+
+						if (select && from && where ) {
+							System.out.println("ou será que foi aqui?");
+
+							String atributo[] = elemento.split("\\.");
+
+							ArrayList<String> valor = new ArrayList<>();
+							valor.add(atributo[0]);
+							valor.add(atributo[1]);
+							valor.add(atributo[2]);
+							valor.add(atributo[3]);
+
+							atributosJuncao.add(valor);
+						}
+
+					}
+
+				}
+
+			}
+		}
+		for (ArrayList<String> elemento: atributosJuncao){
+			System.out.println("Atributos de junção: "+elemento.get(0)+"."+elemento.get(1)+" = " +elemento.get(2)+"."+elemento.get(3));
+		}
+		System.out.println("\n");
+		for (String chaves: tabelasLabel.keySet()) {
+			System.out.println("chave: "+chaves + " valor "+tabelasLabel.get(chaves));
+			for (String valores: colunasSelecionadas.get(tabelasLabel.get(chaves))) System.out.println("valores "+valores);
+
+		}
+
 
 	}
+
 }

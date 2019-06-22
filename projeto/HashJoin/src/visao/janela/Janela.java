@@ -11,7 +11,7 @@ public class Janela extends JFrame{
 
 
     public Janela(){
-        super("SpotPer - Suas músicas onde e quando quiser!");
+        super("HashJoin");
 
         configuracoesPadrao();
     }
@@ -21,6 +21,7 @@ public class Janela extends JFrame{
         //SET BORDER LAYOUT
         BorderLayout layout = new BorderLayout();
         this.setLayout(layout);
+        this.setMinimumSize(new Dimension(1100, 700));
 
         //TAMANHO DA TELA
         this.setSize(900, 700);

@@ -24,7 +24,6 @@ public class PainelInicial extends JPanel {
 	private JTextField login;
 	private JPasswordField senha;
 
-	private Conectar conexao;
 
 	public PainelInicial(Janela janela){
 		super();
@@ -33,9 +32,7 @@ public class PainelInicial extends JPanel {
 		this.setVisible(true);
 	}
 
-	public Conectar getConexao() {
-		return conexao;
-	}
+
 
 	private void configuracoes(){
 
@@ -182,6 +179,49 @@ public class PainelInicial extends JPanel {
 	public class BotaoConectar implements ActionListener {
 		public void actionPerformed(ActionEvent evento) {
 
+			new CarregamentoInicial().start();
+			new Login().start();
+			
+		}
+
+
+	}
+
+
+	class CarregamentoInicial extends Thread {
+
+		public void run() {
+			//-----------------\\ INÍCIO - PAINEL DE CARREGAMENTO  //-----------------\\
+
+			painelSuperior.removeAll();
+			painelInferior.removeAll();
+			painelLogin.removeAll();
+
+			JLabel informacao = new JLabel("Realizando login no servidor ...");
+			informacao.setFont(Fontes.ROBOTO_GRANDE);
+			informacao.setForeground(Cores.corBotaoAzulEscuro);
+
+			painelSuperior.add(informacao, BorderLayout.CENTER);
+
+			painelSuperior.revalidate();
+			painelInferior.revalidate();
+			painelLogin.revalidate();
+
+			painelSuperior.repaint();
+			painelInferior.repaint();
+			painelLogin.repaint();
+
+			janela.repaint();
+
+			//-----------------\\ FIM - PAINEL DE CARREGAMENTO  //-----------------\\
+		}
+	}
+
+	class Login extends Thread {
+
+		public void run() {
+			//-----------------\\ INÍCIO - REALIZA O LOGIN NO SERVIDOR //-----------------\\
+
 			// Recupera os valores
 			String textServidor = servidor.getText().equals("") ? "Ubuntinho-s2" : servidor.getText();
 			String textPorta = porta.getText().equals("") ? "1433" : porta.getText();
@@ -189,15 +229,16 @@ public class PainelInicial extends JPanel {
 			String textSenha = porta.getText().equals("") ? "admin123H" : senha.getText();
 
 			// Configura a conexão
-			conexao = new modelo.conexao.Conectar();
+			Conectar conexao = new modelo.conexao.Conectar();
 			conexao.setServer(textServidor, textPorta);
 			conexao.setLogin(textLogin, textSenha);
 
 			janela.getContentPane().removeAll();
-			janela.conteudoJanela(new PainelBancos(janela));
+			janela.conteudoJanela(new PainelBancos(janela, conexao));
 			janela.revalidate();
 			janela.repaint();
-			
+
+			//-----------------\\ FIM - INÍCIO - REALIZA O LOGIN NO SERVIDOR  //-----------------\\
 		}
 	}
 
