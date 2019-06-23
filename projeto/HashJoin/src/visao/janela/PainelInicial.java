@@ -195,23 +195,18 @@ public class PainelInicial extends JPanel {
 
 			painelSuperior.removeAll();
 			painelInferior.removeAll();
-			painelLogin.removeAll();
 
 			JLabel informacao = new JLabel("Realizando login no servidor ...");
 			informacao.setFont(Fontes.ROBOTO_GRANDE);
 			informacao.setForeground(Cores.corBotaoAzulEscuro);
 
-			painelSuperior.add(informacao, BorderLayout.CENTER);
+			painelInferior.add(informacao, BorderLayout.CENTER);
 
 			painelSuperior.revalidate();
 			painelInferior.revalidate();
-			painelLogin.revalidate();
 
 			painelSuperior.repaint();
 			painelInferior.repaint();
-			painelLogin.repaint();
-
-			janela.repaint();
 
 			//-----------------\\ FIM - PAINEL DE CARREGAMENTO  //-----------------\\
 		}

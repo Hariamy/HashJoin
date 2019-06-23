@@ -1,7 +1,10 @@
 package modelo.conexao;
 
+import modelo.Tabela;
 import modelo.conexao.Conectar;
 
+import java.awt.font.FontRenderContext;
+import java.net.ConnectException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -174,6 +177,90 @@ public class Executar {
             System.out.println(e);
         }
         return tabelas;
+    }
+
+    // select s.lastrun, s.idle from spt_monitor as s, spt_fallback_dev as f where f.low = s.idle
+
+    public Tabela getTabela(Conectar conexao, String tabela, ArrayList<String> atributos, String label){
+        Tabela result = new Tabela(tabela);
+        try {
+            conexao.abrirConexao();
+            if (conexao.conectou()) {
+/*
+                String sel = "select ";
+                for (int i = 0; i < atributos.size() - 1; i++){
+                    sel += "?, ";
+                }
+                sel += " ? from ? ";
+
+                System.out.println(sel);
+
+                PreparedStatement ps = conexao.getC().prepareStatement(sel);
+
+                for (int i = 0; i < atributos.size() ; i++){
+                    ps.setString(i+1, atributos.get(i));
+                }
+              ps.setString(atributos.size() + 1, tabela);
+
+                ResultSet rs = ps.executeQuery();
+
+*/
+                // GAMBIARRA
+                result.setCabecalho(atributos.toArray(new String[0]));
+
+                String sel = "select ";
+                for (int i = 0; i < atributos.size() ; i++){
+                    sel = i == atributos.size()-1 ? sel + atributos.get(i)+" " : sel + atributos.get(i) + ", ";
+                }
+                sel = sel + " from "+tabela;
+
+                PreparedStatement ps = conexao.getC().prepareStatement(sel);
+
+                ResultSet rs = ps.executeQuery();
+
+                while(rs.next()){
+
+                    ArrayList<String> linha = new ArrayList<>();
+
+                    for (String atributo: atributos){
+                        linha.add(rs.getString(atributo));
+                    }
+                    result.addLinha(linha.toArray(new String[0]));
+                }
+
+				result.saveDisco();
+                result.addConcatenacao(label);
+                ps.close();
+                conexao.fecharConexao();
+                executou = true;
+            }
+            if (conexao.conectou()) conexao.fecharConexao();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return result;
+
+    }
+    public boolean update(String up, Conectar con){
+        executou = false;
+        try {
+            con.abrirConexao();
+            if (con.conectou()){
+                Statement s = con.getC().createStatement();
+                s.executeUpdate(up);
+                con.fecharConexao();
+                s.close();
+                executou = true;
+            }
+            if (con.conectou()) con.fecharConexao();
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return executou;
     }
 
 }

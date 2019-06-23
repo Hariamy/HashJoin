@@ -1,6 +1,8 @@
 package visao.janela;
 
 import modelo.Database;
+import modelo.HashJoin;
+import modelo.Tabela;
 import modelo.conexao.Conectar;
 import modelo.conexao.Executar;
 import visao.layout.Botao;
@@ -9,6 +11,8 @@ import visao.layout.Fontes;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -161,7 +165,7 @@ public class PainelHashJoin extends JPanel{
 
 			painelBotao.add(botaoBanco);
 
-			adicionaPainelLateral(painelBotao, 60);
+			adicionaPainelLateral(painelBotao, 70);
 
 		}
 
@@ -173,7 +177,7 @@ public class PainelHashJoin extends JPanel{
 
 		JPanel painelConsulta = new JPanel();
 		painelConsulta.setBorder(bordaVazia);
-		painelConsulta.setPreferredSize(new Dimension(700, 250));
+		painelConsulta.setPreferredSize(new Dimension(700, 400));
 		painelConsulta.setBackground(Cores.corVerde);
 		painelConsulta.setLayout(new BorderLayout());
 
@@ -248,13 +252,42 @@ public class PainelHashJoin extends JPanel{
 
 	public class BotaoConsulta implements ActionListener {
 		public void actionPerformed(ActionEvent evento) {
-			String textoConsulta = consulta.getText().replaceAll(",", " ").replaceAll("\n", " ").replaceAll("\t", " ").replaceAll(" +", " ").toLowerCase().replaceAll(" as ", ".").replaceAll(" = ", ".");
+			new CarregaInfo().start();
+			new Uniao().start();
+		}
+	}
+
+	class CarregaInfo extends Thread {
+		public void run() {
+			//-----------------\\ INÍCIO - ADQUIRINDO OS DADOS DA TABELA  //-----------------\\
+
+			painelCentro.removeAll();
+
+			JLabel informacao = new JLabel("Executando a união ...");
+			informacao.setFont(Fontes.ROBOTO_BOLD_MENOR);
+			informacao.setForeground(Cores.corBotaoAzulEscuro);
+
+			painelCentro.add(informacao);
+			painelCentro.revalidate();
+			painelCentro.repaint();
+
+			this.interrupt();
+
+			//-----------------\\ FIM - ADQUIRINDO OS DADOS DA TABELA  //-----------------\\
+		}
+	}
+
+	class Uniao extends Thread {
+		public void run() {
+			//-----------------\\ INÍCIO - PAINEL DE CARREGAMENTO  //-----------------\\
+
+			String textoConsulta = consulta.getText().replaceAll(",", " ").replaceAll("\n", " ").replaceAll("\t", " ").replaceAll(" +", " ").toLowerCase().replaceAll(" as ", ".").replaceAll(" = ", ".").replaceAll(" and ", " ");
 
 			String arrayConsulta[] = textoConsulta.split(" ");
-			System.out.println(textoConsulta);
 
 			HashMap<String, ArrayList<String>> colunasSelecionadas = new HashMap<>();
-			HashMap<String, ArrayList<String>> tabelasLabel = new HashMap<>();
+			HashMap<String, ArrayList<String>> colunasExibir = new HashMap<>();
+			HashMap<String,String> tabelasLabel = new HashMap<>();
 			ArrayList<ArrayList<String>> atributosJuncao = new ArrayList<>();
 
 			boolean select = false;
@@ -268,23 +301,27 @@ public class PainelHashJoin extends JPanel{
 					else {
 						if (select && elemento.equals("where") && from && !where) where = true;
 						else {
+
 							if (select && !from && !where ) {
+
 								String atributo[] = elemento.split("\\.");
 
 								ArrayList<String> valor = colunasSelecionadas.containsKey(atributo[0]) ? colunasSelecionadas.get(atributo[0]) : new ArrayList<>();
 								valor.add(atributo[1]);
 								colunasSelecionadas.put(atributo[0], valor);
+								colunasExibir.put(atributo[0], valor);
 							}
 
 							if (select && from && !where ) {
+
 								String atributo[] = elemento.split("\\.");
 
-								ArrayList<String> valor = tabelasLabel.containsKey(atributo[0]) ? tabelasLabel.get(atributo[0]) : new ArrayList<>();
-								valor.add(atributo[1]);
-								tabelasLabel.put(atributo[0], valor);
+								tabelasLabel.put(atributo[0], atributo[1]);
 							}
 
 							if (select && from && where ) {
+
+
 								String atributo[] = elemento.split("\\.");
 
 								ArrayList<String> valor = new ArrayList<>();
@@ -294,6 +331,15 @@ public class PainelHashJoin extends JPanel{
 								valor.add(atributo[3]);
 
 								atributosJuncao.add(valor);
+
+								// adiciona coluna a seleção
+								ArrayList<String> valor2 = colunasSelecionadas.containsKey(atributo[0]) ? colunasSelecionadas.get(atributo[0]) : new ArrayList<>();
+								if (! valor2.contains(atributo[1])) valor2.add(atributo[1]);
+								colunasSelecionadas.put(atributo[0], valor2);
+
+								ArrayList<String> valor3 = colunasSelecionadas.containsKey(atributo[2]) ? colunasSelecionadas.get(atributo[2]) : new ArrayList<>();
+								if (! valor3.contains(atributo[3])) valor3.add(atributo[3]);
+								colunasSelecionadas.put(atributo[2], valor3);
 							}
 
 						}
@@ -302,17 +348,65 @@ public class PainelHashJoin extends JPanel{
 
 				}
 			}
-			for (ArrayList<String> elemento: atributosJuncao){
-				System.out.println("Atributos de junção: "+elemento.get(0)+"."+elemento.get(1)+" = " +elemento.get(2)+"."+elemento.get(3));
+
+			ArrayList<Tabela> tabelas = banco.lerTabelasBanco(tabelasLabel, colunasSelecionadas, conexao);
+			HashJoin hashjoin = new HashJoin();
+
+			Tabela juncao = hashjoin.multiplaUniao(tabelas, atributosJuncao, colunasExibir);
+
+			juncao.iniciarLeitura();
+
+			String dados[][] = new String[juncao.getLinhaTotal()][];
+			for (int i = 0; i < juncao.getLinhaTotal() && i < 10000; i++){
+				dados[i] = juncao.getLinha();
 			}
 
-			for (String chaves: colunasSelecionadas.keySet()){
-				System.out.print("Colunas para mostrar: de "+tabelasLabel.get(chaves)+" atributos: ");
-				for (String valores: colunasSelecionadas.get(chaves)) System.out.print(valores + "  ");
-			}
+			JTable valor = new JTable(dados, juncao.getCabecalho());
 
+			setTamanhoColuna(valor, juncao.getCabecalho());
+			valor.setFillsViewportHeight(true);
+			valor.getTableHeader().setReorderingAllowed(false);
+			valor.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			JScrollPane scrollPane = new JScrollPane (valor);
+			scrollPane.setPreferredSize(new Dimension( 700,550));
+
+
+			Botao botaoBanco = new Botao("NOVA CONSULTAR");
+			botaoBanco.setMargin(new Insets(10, 80, 10, 80));
+			botaoBanco.configurarFonteCorFundo(Fontes.ROBOTO_BOLD_MENOR, Cores.corBranca, Cores.azulEscuro2);
+			botaoBanco.addActionListener(new BotaoNovaConsulta());
+
+			painelCentro.removeAll();
+
+			painelCentro.add(scrollPane, BorderLayout.NORTH);
+			painelCentro.add(botaoBanco);
+
+			painelCentro.revalidate();
+			painelCentro.repaint();
+			//-----------------\\ FIM - PAINEL DE CARREGAMENTO  //-----------------\\
 		}
 	}
+
+	public class BotaoNovaConsulta implements ActionListener {
+		public void actionPerformed(ActionEvent evento) {
+			janela.getContentPane().removeAll();
+			janela.conteudoJanela(new PainelHashJoin(janela, conexao, banco));
+			janela.revalidate();
+			janela.repaint();
+		}
+	}
+
+	void setTamanhoColuna(JTable valor, String[] titulo){
+		TableColumn colunas = null;
+		int tamanho = titulo.length;
+		int largura = 770/tamanho < 60? 60 : 770/tamanho - 1;
+
+		for (int coluna = 0; coluna < tamanho; coluna++){
+			colunas = valor.getColumnModel().getColumn(coluna);
+			colunas.setPreferredWidth(largura);
+		}
+	}
+
 
 	public class BotaoPainelLateral implements ActionListener {
 		boolean pressionado = false;
@@ -369,7 +463,7 @@ public class PainelHashJoin extends JPanel{
 				botaoBanco.addActionListener(new BotaoPainelLateral(chave));
 				painelBotao.add(botaoBanco);
 
-				adicionaPainelLateral(painelBotao, 60);
+				adicionaPainelLateral(painelBotao, 70);
 
 				if (chave.equals(expandir) && pressionado) {
 
