@@ -11,7 +11,7 @@ public class Janela extends JFrame{
 
 
     public Janela(){
-        super("HashJoin");
+        super("Junção de Tabelas do SQL-Server");
 
         configuracoesPadrao();
     }

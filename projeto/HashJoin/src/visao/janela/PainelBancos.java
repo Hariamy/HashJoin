@@ -84,6 +84,7 @@ public class PainelBancos extends JPanel{
 		//-----------------\\ FIM - CARREGA IMAGEM BOTAO VOLTAR //-----------------\\
 
 
+
 		//-----------------\\ INÍCIO - CONFIGURA AS COISAS DO PAINEL CENTRAL //-----------------\\
 
 		dimensaoCental = new Dimension(400, 0);
@@ -102,6 +103,20 @@ public class PainelBancos extends JPanel{
 
 		//-----------------\\ FIM - CONFIGURA AS COISAS DO PAINEL CENTRAL //-----------------\\
 
+		JLabel informacao = new JLabel("ESCOLHA O BANCO DE DADOS");
+		informacao.setPreferredSize(new Dimension(1080, 80));
+		informacao.setFont(Fontes.ROBOTO_BOLD_MEDIA);
+		informacao.setForeground(Cores.corBotaoAzulEscuro);
+		informacao.setHorizontalAlignment(SwingConstants.CENTER);
+
+		JPanel painelTitulo = new JPanel(new FlowLayout());
+		painelTitulo.setBorder(bordaVazia);
+		painelTitulo.setPreferredSize(new Dimension(1080, 80));
+		painelTitulo.setBackground(Cores.azulEscuro);
+
+		painelTitulo.add(informacao, "Center");
+
+		adicionaPainelCentral(painelTitulo, 80);
 
 		//-----------------\\ INÍCIO - ADICIONA OS BOTÕES REFERENTES AOS BANCOS DE DADOS //-----------------\\
 
@@ -115,7 +130,7 @@ public class PainelBancos extends JPanel{
 				painelBotao.setPreferredSize(new Dimension(400, 80));
 				painelBotao.setBackground(Cores.azulEscuro);
 
-				Botao botaoBanco = new Botao(bancos.get(i));
+				Botao botaoBanco = new Botao(bancos.get(i).toUpperCase());
 				botaoBanco.setMargin(new Insets(10, 80, 10, 80));
 				botaoBanco.configurarFonteCorFundo(Fontes.ROBOTO_BOLD_MEDIA, Cores.corBranca, Cores.azulEscuro2);
 				botaoBanco.addActionListener(new BotaoBanco(bancos.get(i)));

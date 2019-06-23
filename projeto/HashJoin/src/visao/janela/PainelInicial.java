@@ -217,21 +217,28 @@ public class PainelInicial extends JPanel {
 		public void run() {
 			//-----------------\\ INÍCIO - REALIZA O LOGIN NO SERVIDOR //-----------------\\
 
-			// Recupera os valores
-			String textServidor = servidor.getText().equals("") ? "Ubuntinho-s2" : servidor.getText();
-			String textPorta = porta.getText().equals("") ? "1433" : porta.getText();
-			String textLogin = porta.getText().equals("") ? "sa" : login.getText();
-			String textSenha = porta.getText().equals("") ? "admin123H" : senha.getText();
+			try {
+				// Recupera os valores
+				String textServidor = servidor.getText().equals("") ? "Ubuntinho-s2" : servidor.getText();
+				String textPorta = porta.getText().equals("") ? "1433" : porta.getText();
+				String textLogin = porta.getText().equals("") ? "sa" : login.getText();
+				String textSenha = porta.getText().equals("") ? "admin123H" : senha.getText();
 
-			// Configura a conexão
-			Conectar conexao = new modelo.conexao.Conectar();
-			conexao.setServer(textServidor, textPorta);
-			conexao.setLogin(textLogin, textSenha);
+				// Configura a conexão
+				Conectar conexao = new modelo.conexao.Conectar();
+				conexao.setServer(textServidor, textPorta);
+				conexao.setLogin(textLogin, textSenha);
 
-			janela.getContentPane().removeAll();
-			janela.conteudoJanela(new PainelBancos(janela, conexao));
-			janela.revalidate();
-			janela.repaint();
+				janela.getContentPane().removeAll();
+				janela.conteudoJanela(new PainelBancos(janela, conexao));
+				janela.revalidate();
+				janela.repaint();
+
+			} catch (Exception e){
+				URL erroIcone = ClassLoader.getSystemResource("imagens/erro.png");
+				Icon iconeErro = new ImageIcon(erroIcone);
+				JOptionPane.showMessageDialog (new JFrame(), "NÃO FOI POSSÍVEL REALIZAR O LOGIN", "Erro", JOptionPane.INFORMATION_MESSAGE, iconeErro);
+			}
 
 			//-----------------\\ FIM - INÍCIO - REALIZA O LOGIN NO SERVIDOR  //-----------------\\
 		}
