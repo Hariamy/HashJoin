@@ -4,6 +4,7 @@
       A VERSÃO DO JDK DEVE SER A 8
 
 */
+import modelo.Tabela;
 import visao.janela.Janela;
 import visao.layout.Fontes;
 import visao.janela.PainelInicial;
@@ -87,7 +88,7 @@ public class Main {
 
         Fontes.setFonte();
 */
-
+/*
 		String consulta =  "select p.idadem, p.nome, q.idade from parto as p, quarto as q where p.sexo = q.sexo";
 
 		String textoConsulta = consulta.replaceAll(",", " ").replaceAll("\n", " ").replaceAll("\t", " ").replaceAll(" +", " ").toLowerCase().replaceAll(" as ", ".").replaceAll(" = ", ".");
@@ -157,7 +158,23 @@ public class Main {
 
 		}
 
+*/
+		Tabela tab = new Tabela("teste");
 
+		for (int i = 0; i < 110000; i++ ){
+			String[] linha = {"eu", "estava", "testando", String.valueOf(i)};
+			tab.addLinha(linha, false);
+		}
+		String[] linha = {"eu", "estava", "testando","Ultima"};
+
+		tab.addLinha(linha, true);
+
+		for (int i = 0; i<tab.getLinhaTotal(); i++){
+			for (String elemento: tab.getLinha()){
+				//System.out.print(elemento+"  ");
+			}
+			//System.out.println();
+		}
 	}
 
 }
