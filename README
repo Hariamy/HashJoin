@@ -1,0 +1,5 @@
+PARA UTILIZAR O PROGRAMA
+
+Deve ser utilizada a sintaxe do SQL-Server com labels nas variáveis.
+Os atributos de junção que se referem ao HASHJOIN devem utilizar o operador '==' para relacionar a igualdade.
+Os atributos para a seleção devem seguir a ordem: atributo da tabela -> operador -> condição e a condição não pode se referir a duas tabelas distintas
