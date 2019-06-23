@@ -181,7 +181,7 @@ public class Executar {
 
     // select s.lastrun, s.idle from spt_monitor as s, spt_fallback_dev as f where f.low = s.idle
 
-    public Tabela getTabela(Conectar conexao, String tabela, ArrayList<String> atributos, String label){
+    public Tabela getTabela(Conectar conexao, String tabela, ArrayList<String> atributos, String where, String label){
         Tabela result = new Tabela(tabela);
         try {
             conexao.abrirConexao();
@@ -212,7 +212,8 @@ public class Executar {
                 for (int i = 0; i < atributos.size() ; i++){
                     sel = i == atributos.size()-1 ? sel + atributos.get(i)+" " : sel + atributos.get(i) + ", ";
                 }
-                sel = sel + " from "+tabela;
+                sel = sel + " from "+ tabela + where;
+
 
                 PreparedStatement ps = conexao.getC().prepareStatement(sel);
 

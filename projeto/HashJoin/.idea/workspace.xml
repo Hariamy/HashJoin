@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6761fa28-9c4f-4314-a7d8-219436a0ccff" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imagens/icone.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/imagens/icone.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/imagens/inicial.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/imagens/inicial.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visao/janela/Janela.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visao/janela/Janela.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visao/janela/PainelBancos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visao/janela/PainelBancos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visao/janela/PainelInicial.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visao/janela/PainelInicial.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modelo/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/Database.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modelo/conexao/Executar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modelo/conexao/Executar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visao/janela/PainelHashJoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visao/janela/PainelHashJoin.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,14 +33,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/visao/janela/PainelHashJoin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1156">
-              <caret line="265" column="47" selection-start-line="265" selection-start-column="47" selection-end-line="265" selection-end-column="47" />
+            <state relative-caret-position="331">
+              <caret line="369" selection-start-line="369" selection-end-line="369" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#run#0;class#Uniao#0;class#PainelHashJoin#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/modelo/Database.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/modelo/conexao/Executar.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="124">
+              <caret line="203" lean-forward="true" selection-start-line="203" selection-end-line="203" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/modelo/HashJoin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-656">
+              <caret line="134" column="188" selection-start-line="134" selection-start-column="7" selection-end-line="134" selection-end-column="188" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -51,8 +81,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/visao/janela/Janela.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="43" lean-forward="true" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
+            <state relative-caret-position="-221">
+              <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -63,8 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/visao/janela/PainelInicial.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-11">
-              <caret line="57" column="71" lean-forward="true" selection-start-line="57" selection-start-column="71" selection-end-line="57" selection-end-column="71" />
+            <state relative-caret-position="705">
+              <caret line="57" column="71" selection-start-line="57" selection-start-column="71" selection-end-line="57" selection-end-column="71" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,7 +105,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/visao/janela/PainelBancos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
+            <state relative-caret-position="525">
               <caret line="115" selection-start-line="115" selection-end-line="115" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -137,14 +167,14 @@
         <option value="$PROJECT_DIR$/src/modelo/Executar.java" />
         <option value="$PROJECT_DIR$/src/visao/janela/PainelTabelas.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/modelo/Database.java" />
-        <option value="$PROJECT_DIR$/src/modelo/conexao/Executar.java" />
         <option value="$PROJECT_DIR$/src/modelo/Tabela.java" />
-        <option value="$PROJECT_DIR$/src/visao/janela/PainelHashJoin.java" />
         <option value="$PROJECT_DIR$/src/modelo/HashJoin.java" />
         <option value="$PROJECT_DIR$/src/visao/janela/PainelInicial.java" />
         <option value="$PROJECT_DIR$/src/visao/janela/PainelBancos.java" />
         <option value="$PROJECT_DIR$/src/visao/janela/Janela.java" />
+        <option value="$PROJECT_DIR$/src/visao/janela/PainelHashJoin.java" />
+        <option value="$PROJECT_DIR$/src/modelo/Database.java" />
+        <option value="$PROJECT_DIR$/src/modelo/conexao/Executar.java" />
       </list>
     </option>
   </component>
@@ -159,8 +189,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -177,19 +205,40 @@
               <item name="HashJoin" type="b2602c69:ProjectViewProjectNode" />
               <item name="HashJoin" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="visao" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HashJoin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HashJoin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="tabela" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HashJoin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HashJoin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="modelo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HashJoin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HashJoin" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="modelo" type="462c0819:PsiDirectoryNode" />
+              <item name="conexao" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="HashJoin" type="b2602c69:ProjectViewProjectNode" />
               <item name="HashJoin" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="visao" type="462c0819:PsiDirectoryNode" />
-              <item name="janela" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -264,11 +313,13 @@
       <workItem from="1561297225386" duration="4371000" />
       <workItem from="1561304647876" duration="16440000" />
       <workItem from="1561324755803" duration="1898000" />
+      <workItem from="1561327897016" duration="251000" />
+      <workItem from="1561331004581" duration="2368000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99085000" />
+    <option name="totallyTimeSpent" value="101704000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -281,8 +332,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1366" y="0" width="1920" height="1080" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14674494" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14994664" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -293,7 +345,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32948583" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.4994664" weight="0.32948583" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49786553" weight="0.32738718" />
+      <window_info active="true" anchor="bottom" id="Run" order="3" sideWeight="0.49786553" visible="true" weight="0.32738718" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
@@ -388,24 +440,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/data/tabela/cursoUaluno/cursoUaluno0" />
-    <entry file="file://$PROJECT_DIR$/src/data/tabela/alunoUcurso/alunoUcurso0" />
-    <entry file="file://$PROJECT_DIR$/src/modelo/conexao/Executar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="208" column="70" selection-start-line="208" selection-start-column="70" selection-end-line="208" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/modelo/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/modelo/Tabela.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2355">
@@ -418,10 +452,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/modelo/HashJoin.java">
+    <entry file="file://$PROJECT_DIR$/src/visao/janela/PainelInicial.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="142" lean-forward="true" selection-start-line="142" selection-end-line="142" />
+        <state relative-caret-position="705">
+          <caret line="57" column="71" selection-start-line="57" selection-start-column="71" selection-end-line="57" selection-end-column="71" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -430,8 +464,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/visao/janela/PainelBancos.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
+        <state relative-caret-position="525">
           <caret line="115" selection-start-line="115" selection-end-line="115" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/tabela/dep_cursoUcursoUdepartamentoUunidade/dep_cursoUcursoUdepartamentoUunidade0">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/tabela/alunoUcurso/alunoUcurso0">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/modelo/HashJoin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-656">
+          <caret line="134" column="188" selection-start-line="134" selection-start-column="7" selection-end-line="134" selection-end-column="188" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -440,18 +494,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/visao/janela/Janela.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="43" lean-forward="true" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/visao/janela/PainelInicial.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-11">
-          <caret line="57" column="71" lean-forward="true" selection-start-line="57" selection-start-column="71" selection-end-line="57" selection-end-column="71" />
+        <state relative-caret-position="-221">
+          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -460,12 +504,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/visao/janela/PainelHashJoin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1156">
-          <caret line="265" column="47" selection-start-line="265" selection-start-column="47" selection-end-line="265" selection-end-column="47" />
+        <state relative-caret-position="331">
+          <caret line="369" selection-start-line="369" selection-end-line="369" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#run#0;class#Uniao#0;class#PainelHashJoin#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/modelo/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/modelo/conexao/Executar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="203" lean-forward="true" selection-start-line="203" selection-end-line="203" />
         </state>
       </provider>
     </entry>
