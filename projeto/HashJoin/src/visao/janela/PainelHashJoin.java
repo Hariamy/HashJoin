@@ -280,83 +280,85 @@ public class PainelHashJoin extends JPanel{
 	class Uniao extends Thread {
 		public void run() {
 			//-----------------\\ INÍCIO - PAINEL DE CARREGAMENTO  //-----------------\\
+			try {
+				String textoConsulta = consulta.getText().replaceAll(",", " ")
+						.replaceAll("\n", " ").replaceAll("\t", " ")
+						.replaceAll(" +", " ").toLowerCase()
+						.replaceAll(" as ", ".")
+						.replaceAll(" == ", ".")
+						.replaceAll(" and ", " ")
+						.replaceAll(" < ", "<")
+						.replaceAll(" > ", ">")
+						.replaceAll(" = ", "=")
+						.replaceAll(" <= ", "<=")
+						.replaceAll(" >= ", ">=");
 
-			String textoConsulta = consulta.getText().replaceAll(",", " ")
-					.replaceAll("\n", " ").replaceAll("\t", " ")
-					.replaceAll(" +", " ").toLowerCase()
-					.replaceAll(" as ", ".")
-					.replaceAll(" == ", ".")
-					.replaceAll(" and ", " ")
-					.replaceAll(" < ", "<")
-					.replaceAll(" > ", ">")
-					.replaceAll(" = ", "=")
-					.replaceAll(" <= ", "<=")
-					.replaceAll(" >= ", ">=");
+				String arrayConsulta[] = textoConsulta.split(" ");
 
-			String arrayConsulta[] = textoConsulta.split(" ");
+				// select a.nome, a.cpf, c.nome from aluno as a, curso as c where a.cod_curso == c.cod_curso and a.rg<=2
+				HashMap<String, ArrayList<String>> colunasSelecionadas = new HashMap<>();
+				HashMap<String, ArrayList<String>> colunasExibir = new HashMap<>();
+				HashMap<String, String> tabelasLabel = new HashMap<>();
+				HashMap<String, String> tabelaSelecao = new HashMap<>();
+				ArrayList<ArrayList<String>> atributosJuncao = new ArrayList<>();
 
-			// select a.nome, a.cpf, c.nome from aluno as a, curso as c where a.cod_curso == c.cod_curso and a.rg<=2
-			HashMap<String, ArrayList<String>> colunasSelecionadas = new HashMap<>();
-			HashMap<String, ArrayList<String>> colunasExibir = new HashMap<>();
-			HashMap<String, String> tabelasLabel = new HashMap<>();
-			HashMap<String, String> tabelaSelecao = new HashMap<>();
-			ArrayList<ArrayList<String>> atributosJuncao = new ArrayList<>();
+				boolean select = false;
+				boolean from = false;
+				boolean where = false;
 
-			boolean select = false;
-			boolean from = false;
-			boolean where = false;
-
-			for (String elemento: arrayConsulta) {
-				if (!select && elemento.equals("select") && !from && !where) select = true;
-				else {
-					if (select && elemento.equals("from") && !from && !where) from = true;
+				for (String elemento: arrayConsulta) {
+					if (!select && elemento.equals("select") && !from && !where) select = true;
 					else {
-						if (select && elemento.equals("where") && from && !where) where = true;
+						if (select && elemento.equals("from") && !from && !where) from = true;
 						else {
+							if (select && elemento.equals("where") && from && !where) where = true;
+							else {
 
-							if (select && !from && !where ) {
+								if (select && !from && !where ) {
 
-								String atributo[] = elemento.split("\\.");
+									String atributo[] = elemento.split("\\.");
 
-								ArrayList<String> valor = colunasSelecionadas.containsKey(atributo[0]) ? colunasSelecionadas.get(atributo[0]) : new ArrayList<>();
-								valor.add(atributo[1]);
-								colunasSelecionadas.put(atributo[0], valor);
-								colunasExibir.put(atributo[0], valor);
-							}
-
-							if (select && from && !where ) {
-
-								String atributo[] = elemento.split("\\.");
-
-								tabelasLabel.put(atributo[0], atributo[1]);
-							}
-
-							if (select && from && where ) {
-
-
-								String atributo[] = elemento.split("\\.");
-
-								if (atributo.length == 4){
-									ArrayList<String> valor = new ArrayList<>();
-									valor.add(atributo[0]);
+									ArrayList<String> valor = colunasSelecionadas.containsKey(atributo[0]) ? colunasSelecionadas.get(atributo[0]) : new ArrayList<>();
 									valor.add(atributo[1]);
-									valor.add(atributo[2]);
-									valor.add(atributo[3]);
+									colunasSelecionadas.put(atributo[0], valor);
+									colunasExibir.put(atributo[0], valor);
+								}
 
-									atributosJuncao.add(valor);
+								if (select && from && !where ) {
 
-									// adiciona coluna a seleção
-									ArrayList<String> valor2 = colunasSelecionadas.containsKey(atributo[0]) ? colunasSelecionadas.get(atributo[0]) : new ArrayList<>();
-									if (! valor2.contains(atributo[1])) valor2.add(atributo[1]);
-									colunasSelecionadas.put(atributo[0], valor2);
+									String atributo[] = elemento.split("\\.");
 
-									ArrayList<String> valor3 = colunasSelecionadas.containsKey(atributo[2]) ? colunasSelecionadas.get(atributo[2]) : new ArrayList<>();
-									if (! valor3.contains(atributo[3])) valor3.add(atributo[3]);
-									colunasSelecionadas.put(atributo[2], valor3);
+									tabelasLabel.put(atributo[0], atributo[1]);
+								}
 
-								} else {
-									String aux = tabelaSelecao.containsKey(atributo[0]) ? tabelaSelecao.get(atributo[0]) + " and "+atributo[1] : " where "+atributo[1];
-									tabelaSelecao.put(atributo[0], aux);
+								if (select && from && where ) {
+
+
+									String atributo[] = elemento.split("\\.");
+
+									if (atributo.length == 4){
+										ArrayList<String> valor = new ArrayList<>();
+										valor.add(atributo[0]);
+										valor.add(atributo[1]);
+										valor.add(atributo[2]);
+										valor.add(atributo[3]);
+
+										atributosJuncao.add(valor);
+
+										// adiciona coluna a seleção
+										ArrayList<String> valor2 = colunasSelecionadas.containsKey(atributo[0]) ? colunasSelecionadas.get(atributo[0]) : new ArrayList<>();
+										if (! valor2.contains(atributo[1])) valor2.add(atributo[1]);
+										colunasSelecionadas.put(atributo[0], valor2);
+
+										ArrayList<String> valor3 = colunasSelecionadas.containsKey(atributo[2]) ? colunasSelecionadas.get(atributo[2]) : new ArrayList<>();
+										if (! valor3.contains(atributo[3])) valor3.add(atributo[3]);
+										colunasSelecionadas.put(atributo[2], valor3);
+
+									} else {
+										String aux = tabelaSelecao.containsKey(atributo[0]) ? tabelaSelecao.get(atributo[0]) + " and "+atributo[1] : " where "+atributo[1];
+										tabelaSelecao.put(atributo[0], aux);
+									}
+
 								}
 
 							}
@@ -364,46 +366,55 @@ public class PainelHashJoin extends JPanel{
 						}
 
 					}
-
 				}
+
+
+				ArrayList<Tabela> tabelas = banco.lerTabelasBanco(tabelasLabel, colunasSelecionadas, tabelaSelecao, conexao);
+				HashJoin hashjoin = new HashJoin();
+
+				Tabela juncao = hashjoin.multiplaUniao(tabelas, atributosJuncao, colunasExibir);
+
+				juncao.iniciarLeitura();
+
+				String dados[][] = new String[juncao.getLinhaTotal()][];
+				for (int i = 0; i < juncao.getLinhaTotal() && i < 10000; i++){
+					dados[i] = juncao.getLinha();
+				}
+
+				JTable valor = new JTable(dados, juncao.getCabecalho());
+
+				setTamanhoColuna(valor, juncao.getCabecalho());
+				valor.setFillsViewportHeight(true);
+				valor.getTableHeader().setReorderingAllowed(false);
+				valor.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				JScrollPane scrollPane = new JScrollPane (valor);
+				scrollPane.setPreferredSize(new Dimension( 700,550));
+
+
+				Botao botaoBanco = new Botao("NOVA CONSULTAR");
+				botaoBanco.setMargin(new Insets(10, 80, 10, 80));
+				botaoBanco.configurarFonteCorFundo(Fontes.ROBOTO_BOLD_MENOR, Cores.corBranca, Cores.azulEscuro2);
+				botaoBanco.addActionListener(new BotaoNovaConsulta());
+
+				painelCentro.removeAll();
+
+				painelCentro.add(scrollPane, BorderLayout.NORTH);
+				painelCentro.add(botaoBanco);
+
+				painelCentro.revalidate();
+				painelCentro.repaint();
+				//-----------------\\ FIM - PAINEL DE CARREGAMENTO  //-----------------\\
+
+			}catch (Exception e){
+				URL erroIcone = ClassLoader.getSystemResource("imagens/erro.png");
+				Icon iconeErro = new ImageIcon(erroIcone);
+				JOptionPane.showMessageDialog (new JFrame(), "NÃO FOI POSSÍVEL REALIZAR A CONSULTA: Verifique a sintaxe e tente novamente!", "Erro", JOptionPane.INFORMATION_MESSAGE, iconeErro);
+
+				janela.getContentPane().removeAll();
+				janela.conteudoJanela(new PainelHashJoin(janela, conexao, banco));
+				janela.revalidate();
+				janela.repaint();
 			}
-
-
-			ArrayList<Tabela> tabelas = banco.lerTabelasBanco(tabelasLabel, colunasSelecionadas, tabelaSelecao, conexao);
-			HashJoin hashjoin = new HashJoin();
-
-			Tabela juncao = hashjoin.multiplaUniao(tabelas, atributosJuncao, colunasExibir);
-
-			juncao.iniciarLeitura();
-
-			String dados[][] = new String[juncao.getLinhaTotal()][];
-			for (int i = 0; i < juncao.getLinhaTotal() && i < 10000; i++){
-				dados[i] = juncao.getLinha();
-			}
-
-			JTable valor = new JTable(dados, juncao.getCabecalho());
-
-			setTamanhoColuna(valor, juncao.getCabecalho());
-			valor.setFillsViewportHeight(true);
-			valor.getTableHeader().setReorderingAllowed(false);
-			valor.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			JScrollPane scrollPane = new JScrollPane (valor);
-			scrollPane.setPreferredSize(new Dimension( 700,550));
-
-
-			Botao botaoBanco = new Botao("NOVA CONSULTAR");
-			botaoBanco.setMargin(new Insets(10, 80, 10, 80));
-			botaoBanco.configurarFonteCorFundo(Fontes.ROBOTO_BOLD_MENOR, Cores.corBranca, Cores.azulEscuro2);
-			botaoBanco.addActionListener(new BotaoNovaConsulta());
-
-			painelCentro.removeAll();
-
-			painelCentro.add(scrollPane, BorderLayout.NORTH);
-			painelCentro.add(botaoBanco);
-
-			painelCentro.revalidate();
-			painelCentro.repaint();
-			//-----------------\\ FIM - PAINEL DE CARREGAMENTO  //-----------------\\
 		}
 	}
 

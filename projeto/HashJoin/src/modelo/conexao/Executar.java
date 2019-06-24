@@ -238,7 +238,7 @@ public class Executar {
             if (conexao.conectou()) conexao.fecharConexao();
 
         } catch (Exception e) {
-            System.out.println(e);
+            throw new Error();
         }
 
         return result;
